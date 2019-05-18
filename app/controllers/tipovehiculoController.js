@@ -13,7 +13,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
     tipovehiculo.descripcion = req.body.descripcion
 
     tipovehiculo.save((err, tipovehiculoStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ tipovehiculo: tipovehiculoStored})
     })
@@ -45,7 +45,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
         
   
         Tipovehiculo.findByIdAndUpdate(tipovehiculoId, tipovehiculoUpdate, (err,tipovehiculoStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar el tipo de vehiculo:  '+ err})
+          if (err)return res.status(500).send({menssage: 'Error al actualizar el tipo de vehiculo:  '+ err})
   
           res.status(200).send ({tipovehiculoStored})
         })

@@ -17,7 +17,7 @@ router.post('/despacho', (req, res, next) =>{
     despacho.vehiculo = req.body.vehiculo
 
     despacho.save((err, despachoStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ despacho: despachoStored})
     })
@@ -48,7 +48,7 @@ router.post('/despacho', (req, res, next) =>{
         let despachoUpdate = req.body
   
         Despacho.findByIdAndUpdate(despachoId, despachoUpdate, (err,despachoStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar el despacho:  '+ err})
+          if (err)return res.status(500).send({menssage: 'Error al actualizar el despacho:  '+ err})
   
           res.status(200).send ({despachoStored})
         })

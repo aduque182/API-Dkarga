@@ -15,7 +15,7 @@ router.post('/cliente', (req, res, next) =>{
     cliente.direccion = req.body.direccion
 
     cliente.save((err, clienteStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ cliente: clienteStored})
     })
@@ -46,7 +46,7 @@ router.post('/cliente', (req, res, next) =>{
         let clienteUpdate = req.body
   
         Cliente.findByIdAndUpdate(clienteId, clienteUpdate, (err,clienteStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar el cliente:  '+ err})
+          if (err) return res.status(500).send({menssage: 'Error al actualizar el cliente:  '+ err})
   
           res.status(200).send ({clienteStored})
         })

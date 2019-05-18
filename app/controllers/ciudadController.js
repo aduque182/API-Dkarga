@@ -13,7 +13,7 @@ router.post('/ciudad', (req, res, next) =>{
     ciudad.nombre = req.body.nombre
 
     ciudad.save((err, ciudadStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ ciudad: ciudadStored})
     })
@@ -43,7 +43,7 @@ router.post('/ciudad', (req, res, next) =>{
         let ciudadUpdate = req.body
   
         Ciudad.findByIdAndUpdate(ciudadId, ciudadUpdate, (err,ciudadStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar la ciudad:  '+ err})
+          if (err)return res.status(500).send({menssage: 'Error al actualizar la ciudad:  '+ err})
   
           res.status(200).send ({ciudadStored})
         })

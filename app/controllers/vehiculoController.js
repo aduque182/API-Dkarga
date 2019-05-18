@@ -15,7 +15,7 @@ router.post('/vehiculo', (req, res, next) =>{
    
 
     vehiculo.save((err, vehiculoStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ vehiculo: vehiculoStored})
     })
@@ -48,7 +48,7 @@ router.post('/vehiculo', (req, res, next) =>{
         
   
         Vehiculo.findByIdAndUpdate(vehiculoId, vehiculoUpdate, (err,vehiculoStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar el vehiculo:  '+ err})
+          if (err) return res.status(500).send({menssage: 'Error al actualizar el vehiculo:  '+ err})
   
           res.status(200).send ({vehiculoStored})
         })

@@ -15,7 +15,7 @@ router.post('/servicio', (req, res, next) =>{
     servicio.tarifa = req.body.tarifa
 
     servicio.save((err, servicioStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+$err})
       res.status(200).send({ servicio: servicioStored})
     })
@@ -46,7 +46,7 @@ router.post('/servicio', (req, res, next) =>{
         let servicioUpdate = req.body
   
         Servicio.findByIdAndUpdate(servicioId, servicioUpdate, (err,servicioStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar el servicio:  '+ err})
+          if (err) return res.status(500).send({menssage: 'Error al actualizar el servicio:  '+ err})
   
           res.status(200).send ({servicioStored})
         })

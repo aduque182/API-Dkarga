@@ -15,7 +15,7 @@ router.post('/tarifa', (req, res, next) =>{
     tarifa.costo = req.body.costo
 
     tarifa.save((err, tarifaStored) =>{
-      if (err) res.status(500).send ({message: 
+      if (err) return res.status(500).send ({message: 
       'Error al salvar en la base de datos:'+err})
       res.status(200).send({ tarifa: tarifaStored})
     })
@@ -46,7 +46,7 @@ router.post('/tarifa', (req, res, next) =>{
         let tarifaUpdate = req.body
   
         Tarifa.findByIdAndUpdate(tarifaId, tarifaUpdate, (err,tarifaStored) =>{
-          if (err)res.status(500).send({menssage: 'Error al actualizar la tarifa:  '+ err})
+          if (err)return res.status(500).send({menssage: 'Error al actualizar la tarifa:  '+ err})
   
           res.status(200).send ({tarifaStored})
         })
