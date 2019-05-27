@@ -2,13 +2,15 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Tarifa = mongoose.model('Tarifa');
+const auth= require('../middleware/auth');
+const Cliente = mongoose.model('Cliente');
 
 module.exports = (app) => {
   app.use('/', router);
 };
 
 
-router.post('/tarifa', (req, res, next) =>{
+router.post('/tarifa', auth,(req, res, next) =>{
     let tarifa = new Tarifa()
     tarifa.codigo = req.body.codigo
     tarifa.cliente = req.body.cliente
@@ -21,27 +23,33 @@ router.post('/tarifa', (req, res, next) =>{
     })
   });
 
-  router.get('/tarifas', (req, res, next)=> {
+  router.get('/tarifas', auth, (req, res, next)=> {
     Tarifa.find((err, tarifas)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
        if (!tarifas) return res.status(404).send({message: 'No existen la tarifa'})
-       res.status(200).send({tarifas})
-        });
+       Cliente.populate(tarifas, {path:"cliente", select:"nombre"}, function(err, cliente){
+        res.status(200).send({ tarifa: tarifas})
+       
+        })
+      });
     });
 
-    router.get('/tarifas/:tarifaId', (req, res, next)=> {
+    router.get('/tarifas/:tarifaId', auth,(req, res, next)=> {
       let tarifaId = req.params.tarifaId
       Tarifa.findById(tarifaId, (err, tarifa) =>{
         if (err) return res.status(500).send({menssage: 
           'Error al realizar la peticion: '+ err})
           if (!tarifa) return res.status(404).send({menssage: 'La tarifa no existe'})
-          res.status(200).send({ tarifa})
+          Cliente.populate(tarifa, {path:"cliente", select:"nombre"}, function(err, cliente){
+            res.status(200).send({ tarifa})
+           
+            })
         })
         
       });
 
-      router.put('/tarifas/:tarifaId', (req, res, next) =>{
+      router.put('/tarifas/:tarifaId', auth,(req, res, next) =>{
         let tarifaId = req.params.tarifaId
         let tarifaUpdate = req.body
   
@@ -52,7 +60,7 @@ router.post('/tarifa', (req, res, next) =>{
         })
     });
 
-    router.delete('/tarifas/:tarifaId', (req, res, next) => { 
+    router.delete('/tarifas/:tarifaId', auth,(req, res, next) => { 
       let tarifaId = req.params.tarifaId
   
       Tarifa.findByIdAndRemove(tarifaId,(err, tarifa) => {  

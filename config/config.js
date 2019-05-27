@@ -8,6 +8,7 @@ const config = {
     app: {
       name: 'apiresttransportecarga'
     },
+    SECRET_TOKEN:'transportadora-dkrga182',
     port: process.env.PORT || 3000,
     db: 'mongodb://SeminarioDesarrollo:AFDFuke182@seminariodesarrollo-shard-00-00-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-01-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-02-kxofb.mongodb.net:27017/tallerSeminario?ssl=true&replicaSet=SeminarioDesarrollo-shard-0&authSource=admin&retryWrites=true'
   },
@@ -17,6 +18,7 @@ const config = {
     app: {
       name: 'apiresttransportecarga'
     },
+    SECRET_TOKEN:'transportadora-dkrga182',
     port: process.env.PORT || 3000,
     db: 'mongodb://SeminarioDesarrollo:AFDFuke182@seminariodesarrollo-shard-00-00-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-01-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-02-kxofb.mongodb.net:27017/tallerSeminario?ssl=true&replicaSet=SeminarioDesarrollo-shard-0&authSource=admin&retryWrites=true'
   },
@@ -26,6 +28,7 @@ const config = {
     app: {
       name: 'apiresttransportecarga'
     },
+    SECRET_TOKEN:'transportadora-dkrga182',
     port: process.env.PORT || 3000,
     db: 'mongodb://SeminarioDesarrollo:AFDFuke182@seminariodesarrollo-shard-00-00-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-01-kxofb.mongodb.net:27017,seminariodesarrollo-shard-00-02-kxofb.mongodb.net:27017/tallerSeminario?ssl=true&replicaSet=SeminarioDesarrollo-shard-0&authSource=admin&retryWrites=true'
   }

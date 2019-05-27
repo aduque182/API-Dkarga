@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Ciudad = mongoose.model('Ciudad');
+const auth= require('../middleware/auth');
 
 module.exports = (app) => {
   app.use('/', router);
 };
 
 
-router.post('/ciudad', (req, res, next) =>{
+router.post('/ciudad', auth,(req, res, next) =>{
     let ciudad = new Ciudad()
     ciudad.nombre = req.body.nombre
 
@@ -18,7 +19,7 @@ router.post('/ciudad', (req, res, next) =>{
       res.status(200).send({ ciudad: ciudadStored})
     })
   });
-  router.get('/ciudades', (req, res, next)=> {
+  router.get('/ciudades', auth,(req, res, next)=> {
     Ciudad.find((err, ciudades)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
@@ -27,7 +28,7 @@ router.post('/ciudad', (req, res, next) =>{
         });
     });
 
-    router.get('/ciudades/:ciudadId', (req, res, next)=> {
+    router.get('/ciudades/:ciudadId', auth,(req, res, next)=> {
       let ciudadId = req.params.ciudadId
       Ciudad.findById(ciudadId, (err, ciudad) =>{
         if (err) return res.status(500).send({menssage: 
@@ -38,7 +39,7 @@ router.post('/ciudad', (req, res, next) =>{
         
       });
 
-      router.put('/ciudades/:ciudadId', (req, res, next) =>{
+      router.put('/ciudades/:ciudadId', auth,(req, res, next) =>{
         let ciudadId = req.params.ciudadId
         let ciudadUpdate = req.body
   
@@ -49,7 +50,7 @@ router.post('/ciudad', (req, res, next) =>{
         })
     });
 
-    router.delete('/ciudades/:ciudadId', (req, res, next) => { 
+    router.delete('/ciudades/:ciudadId',auth, (req, res, next) => { 
       let ciudadId = req.params.ciudadId
   
       Ciudad.findByIdAndRemove(ciudadId,(err, ciudad) => {  

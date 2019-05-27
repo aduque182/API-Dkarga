@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Cliente = mongoose.model('Cliente');
+const auth= require('../middleware/auth');
 
 module.exports = (app) => {
   app.use('/', router);
 };
 
 
-router.post('/cliente', (req, res, next) =>{
+router.post('/cliente',auth, (req, res, next) =>{
     let cliente = new Cliente()
     cliente.nit = req.body.nit
     cliente.nombre = req.body.nombre
@@ -21,7 +22,7 @@ router.post('/cliente', (req, res, next) =>{
     })
   });
 
-  router.get('/clientes', (req, res, next)=> {
+  router.get('/clientes', auth,(req, res, next)=> {
     Cliente.find((err, clientes)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
@@ -30,7 +31,7 @@ router.post('/cliente', (req, res, next) =>{
         });
     });
 
-    router.get('/clientes/:clienteId', (req, res, next)=> {
+    router.get('/clientes/:clienteId',auth, (req, res, next)=> {
       let clienteId = req.params.clienteId
       Cliente.findById(clienteId, (err, cliente) =>{
         if (err) return res.status(500).send({menssage: 
@@ -41,7 +42,7 @@ router.post('/cliente', (req, res, next) =>{
         
       });
 
-      router.put('/clientes/:clienteId', (req, res, next) =>{
+      router.put('/clientes/:clienteId', auth,(req, res, next) =>{
         let clienteId = req.params.clienteId
         let clienteUpdate = req.body
   
@@ -52,7 +53,7 @@ router.post('/cliente', (req, res, next) =>{
         })
     });
 
-    router.delete('/clientes/:clienteId', (req, res, next) => { 
+    router.delete('/clientes/:clienteId', auth,(req, res, next) => { 
       let clienteId = req.params.clienteId
   
       Cliente.findByIdAndRemove(clienteId,(err, cliente) => {  

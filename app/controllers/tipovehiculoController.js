@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Tipovehiculo = mongoose.model('Tipovehiculo');
-
+const auth= require('../middleware/auth');
 module.exports = (app) => {
   app.use('/', router);
 };
 
 
-router.post('/tipovehiculo', (req, res, next) =>{
+router.post('/tipovehiculo', auth,(req, res, next) =>{
     let tipovehiculo = new Tipovehiculo()
     tipovehiculo.descripcion = req.body.descripcion
 
@@ -19,7 +19,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
     })
   });
 
-  router.get('/tipovehiculos', (req, res, next)=> {
+  router.get('/tipovehiculos', auth,(req, res, next)=> {
     Tipovehiculo.find((err, tipovehiculos)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
@@ -28,7 +28,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
         });
     });
 
-    router.get('/tipovehiculos/:tipovehiculoId', (req, res, next)=> {
+    router.get('/tipovehiculos/:tipovehiculoId', auth, (req, res, next)=> {
       let tipovehiculoId = req.params.tipovehiculoId
       Tipovehiculo.findById(tipovehiculoId, (err, tipovehiculo) =>{
         if (err) return res.status(500).send({menssage: 
@@ -39,7 +39,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
         
       });
 
-      router.put('/tipovehiculos/:tipovehiculoId', (req, res, next) =>{
+      router.put('/tipovehiculos/:tipovehiculoId', auth,(req, res, next) =>{
         let tipovehiculoId = req.params.tipovehiculoId
         let tipovehiculoUpdate = req.body
         
@@ -51,7 +51,7 @@ router.post('/tipovehiculo', (req, res, next) =>{
         })
     });
 
-    router.delete('/tipovehiculos/:tipovehiculoId', (req, res, next) => { 
+    router.delete('/tipovehiculos/:tipovehiculoId', auth, (req, res, next) => { 
       let tipovehiculoId = req.params.tipovehiculoId
   
       Tipovehiculo.findByIdAndRemove(tipovehiculoId,(err, tipovehiculo) => {  

@@ -4,6 +4,7 @@ const express = require('express');
 const config = require('./config/config');
 const glob = require('glob');
 const mongoose = require('mongoose');
+const jwt = require('./app/services/usuarioServices')
 
 mongoose.connect(config.db);
 const db = mongoose.connection;
