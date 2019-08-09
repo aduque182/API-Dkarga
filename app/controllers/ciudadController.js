@@ -24,7 +24,7 @@ router.post('/ciudad', auth,(req, res, next) =>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
        if (!ciudades) return res.status(404).send({message: 'No existe ciudad'})
-       res.status(200).send({ciudades})
+       res.status(200).send(ciudades)
         });
     });
 
@@ -34,7 +34,7 @@ router.post('/ciudad', auth,(req, res, next) =>{
         if (err) return res.status(500).send({menssage: 
           'Error al realizar la peticion: '+ err})
           if (!ciudad) return res.status(404).send({menssage: 'La ciudad no existe'})
-          res.status(200).send({ ciudad})
+          res.status(200).send( ciudad)
         })
         
       });

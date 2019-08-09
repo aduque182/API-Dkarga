@@ -25,12 +25,12 @@ router.post('/usuario', auth, (req, res, next) =>{
     })
 });
 
-router.get('/usuarios',auth, (req, res, next)=> {
+router.get('/usuarios', (req, res, next)=> {
     Usuario.find((err, usuarios)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
        if (!usuarios) return res.status(404).send({message: 'No existen clientes'})
-       res.status(200).send({usuarios})
+       res.status(200).send(usuarios)
         });
     });
 

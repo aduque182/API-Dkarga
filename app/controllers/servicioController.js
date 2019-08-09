@@ -37,7 +37,7 @@ router.get('/servicios', auth, (req, res, next) => {
       if (err) return res.status(500).send({ message: 'Error al realizar peticion: ' + err })
       Tarifa.populate(servicios, { path: "tarifa", select: "costo" }, function (err, tarifa) {
         if (err) return res.status(500).send({ message: 'Error al realizar peticion: ' + err })
-        res.status(200).send({ servicio: servicios })
+        res.status(200).send({  servicios })
 
       })
 
@@ -57,7 +57,7 @@ router.get('/servicios/:servicioId', auth, (req, res, next) => {
       if (err) return res.status(500).send({ message: 'Error al realizar peticion: ' + err })
       Tarifa.populate(servicio, { path: "tarifa", select: "costo" }, function (err, tarifa) {
         if (err) return res.status(500).send({ message: 'Error al realizar peticion: ' + err })
-        res.status(200).send({ servicio})
+        res.status(200).send(servicio)
 
       })
 

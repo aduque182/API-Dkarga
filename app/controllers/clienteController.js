@@ -9,7 +9,7 @@ module.exports = (app) => {
 };
 
 
-router.post('/cliente',auth, (req, res, next) =>{
+router.post('/cliente', (req, res, next) =>{
     let cliente = new Cliente()
     cliente.nit = req.body.nit
     cliente.nombre = req.body.nombre
@@ -22,12 +22,12 @@ router.post('/cliente',auth, (req, res, next) =>{
     })
   });
 
-  router.get('/clientes', auth,(req, res, next)=> {
+  router.get('/clientes', (req, res, next)=> {
     Cliente.find((err, clientes)=>{
       if(err) return res.status(500).send({message:
           'Error al realizar peticion: '+err})
        if (!clientes) return res.status(404).send({message: 'No existen clientes'})
-       res.status(200).send({clientes})
+       res.status(200).send(clientes)
         });
     });
 
@@ -37,7 +37,7 @@ router.post('/cliente',auth, (req, res, next) =>{
         if (err) return res.status(500).send({menssage: 
           'Error al realizar la peticion: '+ err})
           if (!cliente) return res.status(404).send({menssage: 'El cliente no existe'})
-          res.status(200).send({ cliente})
+          res.status(200).send( cliente)
         })
         
       });
@@ -53,7 +53,7 @@ router.post('/cliente',auth, (req, res, next) =>{
         })
     });
 
-    router.delete('/clientes/:clienteId', auth,(req, res, next) => { 
+    router.delete('/clientes/:clienteId', (req, res, next) => { 
       let clienteId = req.params.clienteId
   
       Cliente.findByIdAndRemove(clienteId,(err, cliente) => {  
